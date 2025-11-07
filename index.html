@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriBot AI - O Sistema Operacional da sua Performance</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        :root {
+            --bg-dark: #0A0A0A;
+            --bg-card: #141414;
+            --primary-accent: #00A3FF;
+            --secondary-accent: #FF4D00;
+            --highlight-accent: #AFFF33;
+            --text-light: #FFFFFF;
+            --text-secondary: #B3B3B3;
+            --border-color: #2F2F2F;
+            --box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        h1, h2 { font-weight: 900; line-height: 1.1; text-align: center; margin-bottom: 20px; }
+        h1 { font-size: 4.5rem; letter-spacing: -3px; }
+        h2 { font-size: 3.5rem; letter-spacing: -2px; }
+        h3 { font-size: 1.8rem; font-weight: 700; color: var(--text-light); margin: 0; }
+        p { font-size: 1.2rem; text-align: center; max-width: 700px; margin: 0 auto 20px; color: var(--text-secondary); }
+
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .highlight { color: var(--highlight-accent); }
+
+        .hero {
+            position: -webkit-sticky; position: sticky;
+            top: 0; height: 100vh;
+            text-align: center; background-image: url('fundo1.png');
+            background-size: cover; background-position: center center;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 0; overflow: hidden;
+        }
+        .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(10, 10, 10, 0.7); z-index: 1; }
+        .hero .container { position: relative; z-index: 2; text-align: center; }
+        .hero h2 { font-size: 1.6rem; font-weight: 400; max-width: 800px; margin: 20px auto 40px; }
+
+        .cta-button {
+            position: relative; overflow: hidden; display: inline-block;
+            background: var(--primary-accent); color: #000;
+            padding: 20px 50px; text-decoration: none; border-radius: 50px;
+            font-size: 1.4rem; font-weight: 900;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 20px rgba(0, 163, 255, 0.4); border: none; cursor: pointer;
+        }
+        .cta-button::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-30deg); transition: left 0.6s ease;
+        }
+        .cta-button:hover::before { left: 150%; }
+        .cta-button:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(0, 163, 255, 0.6); }
+        .cta-subtext { font-size: 1rem; margin-top: 15px; color: var(--text-secondary); }
+
+        main { position: relative; z-index: 1; }
+        section { padding: 100px 0; background-color: var(--bg-dark); position: relative; z-index: 1; }
+        #the-system { background-color: #000; }
+        
+        #impact-image-section {
+            position: -webkit-sticky; position: sticky;
+            top: 0; height: 100vh;
+            padding: 0; z-index: 0; overflow: hidden;
+        }
+        #impact-image-section img { width: 100%; height: 100vh; object-fit: cover; }
+        
+        .pillar {
+            position: relative; 
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px; padding: 40px; margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+        .pillar::before, .pillar::after {
+            content: ""; position: absolute; left: 0; top: 0;
+            width: 100%; height: 100%;
+            border-radius: 20px; opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .pillar::before { 
+            background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(0, 163, 255, 0.5), transparent 40%);
+            z-index: -2;
+        }
+        .pillar::after {
+            background: radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), rgba(255, 77, 0, 0.2), transparent 40%);
+            z-index: -1;
+        }
+        .pillar:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .pillar:hover::before, .pillar:hover::after { opacity: 1; }
+        .pillar-header { display: flex; align-items: center; gap: 25px; margin-bottom: 30px; }
+        .pillar-icon { font-size: 3rem; }
+        .pillar-title p { text-align: left; margin: 5px 0 0 0; font-size: 1.1rem; }
+        .pillar-content ul { list-style: none; padding-left: 0; }
+        .pillar-content li { padding-left: 35px; position: relative; margin-bottom: 15px; font-size: 1.1rem; color: var(--text-secondary); }
+        .pillar-content li::before { content: '✓'; position: absolute; left: 0; color: var(--highlight-accent); font-weight: 900; font-size: 1.5rem; }
+        .pillar-content li strong { color: var(--text-light); font-weight: 700; }
+
+        /* ESTILOS DA TABELA DE COMPARAÇÃO ATUALIZADOS */
+        .comparison-table { width: 100%; margin: 50px auto; border-collapse: collapse; border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; font-size: 1.1rem; }
+        .comparison-table th, .comparison-table td { padding: 20px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        .comparison-table thead th { background-color: #000; color: var(--text-light); font-size: 1.2rem; }
+        .comparison-table tbody tr { background-color: var(--bg-card); }
+        .comparison-table .old-way-cell { color: var(--text-secondary); }
+        .comparison-table .new-way-cell {
+            opacity: 0.3;
+            filter: blur(5px);
+            transform: translateX(-10px);
+            transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
+        }
+        .comparison-table .new-way-cell.revealed {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateX(0);
+        }
+        .comparison-table .new-way-cell span {
+            transform: scale(0);
+            display: inline-block;
+            transition: transform 0.3s ease 0.5s;
+        }
+        .comparison-table .new-way-cell.revealed span {
+            transform: scale(1);
+        }
+        
+        .faq-accordion { max-width: 800px; margin: 50px auto 0; }
+        .faq-item {
+            background-color: var(--bg-card); margin-bottom: 10px; border-radius: 10px;
+            border: 1px solid var(--border-color); overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .faq-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 20px; font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-light); }
+        .faq-question::after { content: '+'; font-size: 2rem; font-weight: 700; color: var(--primary-accent); transition: transform 0.3s ease; }
+        .faq-item.active .faq-question::after { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+        .faq-item.active .faq-answer { max-height: 300px; }
+        .faq-answer p { padding: 0 20px 20px; text-align: left; font-size: 1.1rem; color: var(--text-secondary); }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; letter-spacing: -2px; }
+            h2 { font-size: 2.5rem; letter-spacing: -1.5px; }
+            .comparison-table { font-size: 0.9rem; }
+            .faq-item:hover { transform: none; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <h1>O Fim do 'Achismo'.<br>O Início da <span class="text-gradient">Performance Absoluta.</span></h1>
+            <h2>Seu físico é construído com dados. Este é o primeiro S.O. (Sistema Operacional) de performance que integra Nutrição, Treino e Análise de Dados em uma única conversa, para que você pare de adivinhar e comece a executar com precisão militar.</h2>
+            <a href="URL_DO_SEU_BOT_TELEGRAM" class="cta-button">INICIAR MINHA OTIMIZAÇÃO</a>
+            <p class="cta-subtext">A ferramenta definitiva para quem não negocia resultados.</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="the-system">
+            <div class="container">
+                <h2 class="fade-in">Um Sistema Completo.<br><span class="text-gradient">Quatro Pilares de Performance.</span></h2>
+                <p class="fade-in">Nós integramos todas as ferramentas que você precisa em uma única conversa inteligente.</p>
+                <div class="pillar fade-in">
+                    <div class="pillar-header"><div class="pillar-icon">🍽️</div><div class="pillar-title"><h3>Pilar 1: O Nutricionista Pessoal</h3><p>Análise nutricional precisa e sem esforço.</p></div></div>
+                    <div class="pillar-content"><ul><li><strong>Análise por Foto com GPT-4o Vision:</strong> Aponte a câmera, e o bot identifica e calcula os macros da sua refeição.</li><li><strong>Precisão Brasileira com a Tabela TACO:</strong> Usamos a base de dados de referência nacional para garantir cálculos exatos.</li><li><strong>Plano Alimentar Dinâmico:</strong> Receba um plano de exemplo com quantidades ajustadas matematicamente para a sua meta.</li><li><strong>Sugestão de Suplementos:</strong> Recomendações inteligentes baseadas no seu objetivo e no melhor horário de uso.</li></ul></div>
+                </div>
+                <div class="pillar fade-in">
+                    <div class="pillar-header"><div class="pillar-icon">🏋️‍♂️</div><div class="pillar-title"><h3>Pilar 2: O Head Coach Pessoal</h3><p>Estrutura de treino profissional e registro detalhado.</p></div></div>
+                    <div class="pillar-content"><ul><li><strong>Planos de Treino Profissionais:</strong> Acesso a splits (3-5 dias/semana) adaptados ao seu nível de experiência.</li><li><strong>Biblioteca Visual de Exercícios:</strong> Cada exercício vem com uma imagem para garantir a execução correta e segura.</li><li><strong>Diário de Treino Detalhado (Workout Log):</strong> Registre seu treino com <span class="highlight">Séries x Reps x Carga</span> e acompanhe sua progressão.</li><li><strong>Histórico Completo de Treinos:</strong> Todas as sessões salvas para análise de performance ao longo do tempo.</li></ul></div>
+                </div>
+                 <div class="pillar fade-in">
+                    <div class="pillar-header"><div class="pillar-icon">📊</div><div class="pillar-title"><h3>Pilar 3: O Analista de Performance</h3><p>Seus dados transformados em clareza e motivação.</p></div></div>
+                    <div class="pillar-content"><ul><li><strong>Gráficos de Evolução (Matplotlib):</strong> A prova visual de que seu esforço está funcionando.</li><li><strong>Relatório de Bordo Diário:</strong> Resumo completo do seu consumo vs. meta e treinos realizados.</li><li><strong>Análise Tática Semanal:</strong> Visão macro da sua semana para tomar decisões mais inteligentes.</li><li><strong>Cálculos Precisos e Individuais:</strong> O bot calcula seu IMC, TMB e GCD, criando metas 100% suas.</li></ul></div>
+                </div>
+                <div class="pillar fade-in">
+                    <div class="pillar-header"><div class="pillar-icon">🧠</div><div class="pillar-title"><h3>Pilar 4: A Inteligência Contextual</h3><p>Um cérebro que te entende de verdade.</p></div></div>
+                    <div class="pillar-content"><ul><li><strong>IA com Memória (GPT-4o-mini):</strong> Ele sabe seu perfil, suas metas, e o que você comeu há 5 minutos.</li><li><strong>Feedback Pós-Refeição:</strong> Receba uma análise instantânea e contextualizada da sua refeição.</li><li><strong>Acesso 24/7:</strong> Tire dúvidas sobre nutrição e treino a qualquer hora.</li><li><strong>Interface Conversacional:</strong> Todo esse poder entregue em uma simples conversa no Telegram.</li></ul></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparison">
+            <div class="container">
+                <h2 class="fade-in">Chega de "Apps".<br><span class="text-gradient">Tenha um Sistema.</span></h2>
+                <table class="comparison-table fade-in">
+                    <thead><tr><th>Funcionalidade</th><th>Apps Tradicionais</th><th>NutriBot AI (Ecossistema)</th></tr></thead>
+                    <tbody>
+                        <tr><td class="old-way-cell">Registro Nutricional</td><td class="old-way-cell">Digitação Manual Lenta</td><td class="new-way-cell"><span>✅</span> Análise por Foto (GPT-4o) + Tabela TACO</td></tr>
+                        <tr><td class="old-way-cell">Planos de Treino</td><td class="old-way-cell">PDFs estáticos ou inexistentes</td><td class="new-way-cell"><span>✅</span> Planos Dinâmicos com Biblioteca Visual</td></tr>
+                        <tr><td class="old-way-cell">Registro de Treino</td><td class="old-way-cell">Inexistente ou em outro app</td><td class="new-way-cell"><span>✅</span> Diário de Performance Integrado (Séries/Reps/Carga)</td></tr>
+                        <tr><td class="old-way-cell">Feedback de Performance</td><td class="old-way-cell">Apenas totais diários</td><td class="new-way-cell"><span>✅</span> Relatórios Completos (Diário e Semanal)</td></tr>
+                        <tr><td class="old-way-cell">Inteligência Artificial</td><td class="old-way-cell">Genérica ou inexistente</td><td class="new-way-cell"><span>🧠</span> IA com Contexto e Memória do seu perfil</td></tr>
+                        <tr><td class="old-way-cell">Plataforma</td><td class="old-way-cell">Consome memória e exige download</td><td class="new-way-cell"><span>💬</span> Integrado e Leve no seu Telegram</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="impact-image-section">
+            <img src="imagempage.png" alt="Atleta levantando peso com o texto Menos Achismo, Mais Músculo">
+        </section>
+
+        <section id="faq-section">
+            <div class="container">
+                <h2 class="fade-in">Ainda tem dúvidas?<br><span class="text-gradient">A gente responde.</span></h2>
+                <div class="faq-accordion fade-in">
+                    <div class="faq-item"><button class="faq-question">Preciso baixar algum aplicativo?</button><div class="faq-answer"><p>Não. O sistema opera 100% dentro do Telegram. Sem download, sem ocupar memória, sem mais um ícone na sua tela. É performance com atrito zero.</p></div></div>
+                    <div class="faq-item"><button class="faq-question">A análise de fotos é precisa?</button><div class="faq-answer"><p>Sim. Usamos a IA de visão do GPT-4o, a mais avançada do mercado, combinada com a Tabela TACO para dados brasileiros. Se a IA tiver dúvida, ela pergunta para você refinar. A precisão é o nosso foco.</p></div></div>
+                    <div class="faq-item"><button class="faq-question">Isso substitui meu coach ou nutricionista?</button><div class="faq-answer"><p>Isto é o seu analista de dados 24/7. Ele potencializa o trabalho do seu coach/nutri, entregando dados precisos que eles podem usar para otimizar sua estratégia. É uma ferramenta para elevar o nível do seu time.</p></div></div>
+                    <div class="faq-item"><button class="faq-question">Funciona para dietas veganas/vegetarianas?</button><div class="faq-answer"><p>Sim. O sistema identifica qualquer tipo de alimento. A IA contextual pode fornecer insights e ajustes específicos para dietas baseadas em plantas, garantindo que suas metas de macros sejam atingidas.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="final-cta">
+            <div class="container" style="text-align: center;">
+                <h2 class="fade-in">Amadores seguem planos.<br><span class="text-gradient">Profissionais otimizam sistemas.</span></h2>
+                <p class="fade-in">Sua energia mental deve estar focada na execução, não em administrar dados. Deixe a máquina fazer o trabalho pesado. Nós automatizamos a análise para que você possa focar na performance.</p>
+                <br><br>
+                <a href="URL_DO_SEU_BOT_TELEGRAM" class="cta-button fade-in" style="background: var(--secondary-accent); box-shadow: 0 0 30px rgba(255, 77, 0, 0.4);">QUERO MINHA VANTAGEM INJUSTA</a>
+                <p class="cta-subtext fade-in">Pare de treinar no escuro. Comece a operar com dados.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background-color: #000; color: var(--text-secondary); text-align: center; padding: 30px 0; border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <p style="font-size: 0.9rem;">&copy; 2025 NutriBot AI. O Sistema Operacional para Atletas que não Negociam Resultados.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // SCRIPT PARA O FAQ ACCORDION
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // SCRIPT PARA ANIMAÇÃO DE ENTRADA AO ROLAR
+        const fadeInObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        const elementsToAnimate = document.querySelectorAll('.fade-in');
+        elementsToAnimate.forEach((el) => fadeInObserver.observe(el));
+
+        // SCRIPT PARA PARALLAX COM O MOUSE
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.hero');
+            const impactImage = document.querySelector('#impact-image-section img');
+            
+            const { clientX, clientY } = e;
+            const x = (clientX / window.innerWidth - 0.5) * -30;
+            const y = (clientY / window.innerHeight - 0.5) * -30;
+
+            if (hero) {
+                hero.style.transition = 'transform 0.5s ease-out';
+                hero.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            }
+            if (impactImage) {
+                impactImage.style.transition = 'transform 0.5s ease-out';
+                impactImage.style.transform = `scale(1.1) translateX(${x}px) translateY(${y}px)`;
+            }
+        });
+
+        // SCRIPT PARA EFEITO DE BRILHO NOS CARDS DOS PILARES
+        document.querySelectorAll('.pillar').forEach(pillar => {
+            pillar.addEventListener('mousemove', e => {
+                const rect = pillar.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                pillar.style.setProperty('--mouse-x', `${x}px`);
+                pillar.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // SCRIPT CORRIGIDO PARA REVELAÇÃO DA TABELA
+        const tableRowObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const newWayCell = entry.target.querySelector('.new-way-cell');
+                    if (newWayCell) {
+                        // Um pequeno delay para a animação ficar mais legal
+                        setTimeout(() => {
+                            newWayCell.classList.add('revealed');
+                        }, 200);
+                    }
+                    tableRowObserver.unobserve(entry.target); // Deixa de observar depois de revelar
+                }
+            });
+        }, { 
+            threshold: 0.5 // Revela quando 50% da linha está visível
+        });
+
+        const tableRows = document.querySelectorAll('.comparison-table tbody tr');
+        tableRows.forEach(row => {
+            tableRowObserver.observe(row);
+        });
+    </script>
+
+</body>
+</html>
