@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso Exclusivo - NutriBot AI</title>
+    <style>
+        /* --- ESTILOS GLOBAIS (MESMA BASE DA SUA PÁGINA) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        :root {
+            --bg-dark: #0A0A0A;
+            --bg-card: #141414;
+            --primary-accent: #00A3FF;
+            --secondary-accent: #FF4D00;
+            --highlight-accent: #AFFF33;
+            --text-light: #FFFFFF;
+            --text-secondary: #B3B3B3;
+            --border-color: #2F2F2F;
+            --box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            /* Centraliza o conteúdo da página */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- CONTAINER PRINCIPAL DA CAPTURA --- */
+        .capture-container {
+            max-width: 550px;
+            width: 100%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            /* Efeito de brilho sutil */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .capture-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent,
+                rgba(0, 163, 255, 0.2),
+                transparent 30%
+            );
+            animation: rotate 6s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- TEXTOS E TÍTULOS --- */
+        h1 {
+            font-weight: 900;
+            font-size: 2.8rem;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 400px;
+            margin: 0 auto 30px;
+        }
+
+        /* --- ESTILOS DO FORMULÁRIO --- */
+        .lead-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            background-color: #0A0A0A;
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #555;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 15px rgba(0, 163, 255, 0.3);
+        }
+        
+        .form-group select {
+             -webkit-appearance: none;
+             -moz-appearance: none;
+             appearance: none;
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23B3B3B3' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+             background-repeat: no-repeat;
+             background-position: right 15px center;
+        }
+
+        /* --- BOTÃO DE CTA --- */
+        .cta-button {
+            background: var(--secondary-accent);
+            color: #000;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 900;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 77, 0, 0.4);
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 77, 0, 0.6);
+        }
+
+        .cta-button:disabled {
+            background-color: #888;
+            cursor: not-allowed;
+            transform: scale(1);
+            box-shadow: none;
+        }
+
+        .privacy-notice {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 25px;
+        }
+        
+        @media (max-width: 500px) {
+            h1 { font-size: 2.2rem; }
+            p { font-size: 1rem; }
+            .capture-container { padding: 30px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="capture-container">
+        <div class="content">
+            <h1>Destrave o Futuro da sua <span class="text-gradient">Performance</span></h1>
+            <p>Inscreva-se para ter acesso exclusivo ao NutriBot AI. O Sistema Operacional que conecta sua nutrição, treino e dados.</p>
+    
+            <form class="lead-form">
+                <div class="form-group">
+                    <label for="name">Seu Nome</label>
+                    <input type="text" id="name" name="name" placeholder="Ex: João da Silva" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Sua Idade</label>
+                    <input type="number" id="age" name="age" placeholder="Ex: 28" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="experience">Há quanto tempo você treina?</label>
+                    <select id="experience" name="experience" required>
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="iniciante">Iniciante (menos de 1 ano)</option>
+                        <option value="intermediario">Intermediário (1 a 3 anos)</option>
+                        <option value="avancado">Avançado (mais de 3 anos)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Seu Melhor E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="Ex: joao.silva@email.com" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="whatsapp">WhatsApp (com DDD)</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="(XX) XXXXX-XXXX" required>
+                </div>
+    
+                <button type="submit" class="cta-button">QUERO MINHA VANTAGEM INJUSTA</button>
+            </form>
+            
+            <p class="privacy-notice">Seus dados estão 100% seguros. Odiamos spam tanto quanto você.</p>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE ENVIO E MÁSCARA (VERSÃO CORRIGIDA) -->
+    <script>
+        // --- FUNÇÃO PARA A MÁSCARA DO WHATSAPP (CORRIGIDA E MELHORADA) ---
+        const whatsappInput = document.getElementById('whatsapp');
+
+        const formatarTelefone = (event) => {
+            let input = event.target;
+            // Remove tudo que não for dígito
+            let valor = input.value.replace(/\D/g, '');
+            // Limita a 11 dígitos
+            valor = valor.substring(0, 11);
+
+            // Reconstrói o valor com a máscara
+            let valorFormatado = valor.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+            
+            // Lógica para formatação parcial enquanto digita
+            if (valor.length < 11) {
+                valorFormatado = valor.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+            }
+            if (valor.length < 3) {
+                valorFormatado = valor.replace(/^(\d*)/, '($1');
+            }
+            
+            input.value = valorFormatado;
+        };
+
+        whatsappInput.addEventListener('input', formatarTelefone);
+
+        // --- FUNÇÃO PARA ENVIO DO FORMULÁRIO E REDIRECIONAMENTO (JÁ ESTÁ CORRETA) ---
+        const form = document.querySelector('.lead-form');
+        const formspreeURL = 'https://formspree.io/f/mgvrwygb';
+        const telegramURL = 'https://t.me/NutriAI_bot_Ofc';
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Previne o envio padrão do formulário
+            
+            const button = form.querySelector('.cta-button');
+            const data = new FormData(form);
+
+            // Feedback visual para o usuário
+            button.disabled = true;
+            button.textContent = 'ENVIANDO...';
+
+            try {
+                const response = await fetch(formspreeURL, {
+                    method: 'POST',
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Se o envio foi bem-sucedido, redireciona para o Telegram
+                    console.log('Formulário enviado com sucesso!');
+                    window.location.href = telegramURL;
+                } else {
+                    // Se houve um erro no servidor do Formspree
+                    throw new Error('Falha no envio do formulário.');
+                }
+            } catch (error) {
+                // Se houve um erro de rede ou outro problema
+                console.error('Erro ao enviar o formulário:', error);
+                alert('Ocorreu um erro ao enviar sua inscrição. Por favor, tente novamente.');
+                button.disabled = false;
+                button.textContent = 'QUERO MINHA VANTAGEM INJUSTA';
+            }
+        });
+    </script>
+
+</body>
+</html>
