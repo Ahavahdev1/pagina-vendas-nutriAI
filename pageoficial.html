@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriBot AI - O Sistema Operacional da sua Performance</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        :root {
+            --bg-dark: #0A0A0A;
+            --bg-card: #141414;
+            --primary-accent: #00A3FF;
+            --secondary-accent: #FF4D00;
+            --highlight-accent: #AFFF33;
+            --text-light: #FFFFFF;
+            --text-secondary: #B3B3B3;
+            --border-color: #2F2F2F;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 120px 0; }
+
+        h1, h2, h3 { font-weight: 900; line-height: 1.1; }
+        h1 { font-size: 4.5rem; letter-spacing: -3px; }
+        h2 { font-size: 3.5rem; letter-spacing: -2px; margin-bottom: 20px; }
+        h3 { font-size: 2.5rem; color: var(--text-light); margin-bottom: 20px;}
+        p { font-size: 1.2rem; max-width: 700px; color: var(--text-secondary); }
+        .text-center { text-align: center; }
+        .text-center p { margin-left: auto; margin-right: auto; }
+
+        .logo-link {
+            position: absolute; top: 25px; left: 30px;
+            z-index: 1000; transition: transform 0.2s ease;
+        }
+        .logo-link:hover { transform: scale(1.05); }
+        .logo-link img { height: 150px; }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh; display: flex; align-items: center; text-align: center;
+            padding-top: 70px; position: relative; overflow: hidden;
+            background-color: var(--bg-dark);
+        }
+        #hero-video {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 1;
+        }
+        .hero::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(10, 10, 10, 0.7); z-index: 2;
+        }
+        .hero .container { position: relative; z-index: 3; }
+        .hero h1 {
+            background: linear-gradient(90deg, var(--primary-accent), var(--secondary-accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: hue-flow 8s linear infinite;
+        }
+        @keyframes hue-flow { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        .hero p { font-size: 1.4rem; max-width: 800px; margin: 20px auto 40px; }
+        
+        .cta-button {
+            display: inline-block; color: #000;
+            padding: 15px 40px; text-decoration: none; border-radius: 50px;
+            font-size: 1.2rem; font-weight: 900;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap; 
+        }
+        .hero .cta-button {
+             font-size: 1.4rem; padding: 20px 50px; background: var(--primary-accent);
+             box-shadow: 0 0 25px rgba(0, 163, 255, 0.5);
+        }
+        .cta-button:hover { transform: scale(1.05); }
+        .hero .cta-button:hover { box-shadow: 0 0 40px rgba(0, 163, 255, 0.7); }
+
+        /* --- SEÇÃO "O CICLO DA PERFORMANCE" --- */
+        #how-it-works { background-color: #000; }
+        .cycle-container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; text-align: center; }
+        .cycle-step { background: var(--bg-card); padding: 40px; border: 1px solid var(--border-color); border-radius: 20px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .cycle-step:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .cycle-step .icon { font-size: 3rem; margin-bottom: 20px; }
+        .cycle-step h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--text-light); }
+        .cycle-step p { font-size: 1.1rem; text-align: center; color: var(--text-secondary); margin: 0; }
+        .cycle-step strong { color: var(--highlight-accent); }
+
+        /* --- SEÇÃO ECOSSISTEMA (FEATURES COM IMAGENS) --- */
+        #features { background-color: #000; }
+        .feature-row { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; margin-bottom: 100px; }
+        .feature-row:last-child { margin-bottom: 0; }
+        .feature-row:nth-child(even) .feature-text { grid-column: 1; grid-row: 1; }
+        .feature-text ul { list-style: none; padding-left: 0; }
+        .feature-text li { padding-left: 35px; position: relative; margin-bottom: 15px; font-size: 1.1rem; color: var(--text-secondary); }
+        .feature-text li::before { content: '✓'; position: absolute; left: 0; color: var(--highlight-accent); font-weight: 900; font-size: 1.5rem; line-height: 1.2; }
+        .feature-text li strong { color: var(--text-light); font-weight: 700; }
+        .feature-image img { width: 100%; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
+        .feature-image:hover img { transform: scale(1.03); }
+
+        /* --- SEÇÃO "4 PILARES" COM LAYOUT 2x2 --- */
+        #pilares-performance { background-color: #0A0A0A; }
+        .pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 60px; }
+        .pillar-card { background: var(--bg-card); padding: 40px; border: 1px solid var(--border-color); border-radius: 20px; text-align: left; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .pillar-card:hover { transform: translateY(-10px); border-color: var(--highlight-accent); }
+        .pillar-card .icon { font-size: 3rem; margin-bottom: 20px; }
+        .pillar-card h3 { font-size: 1.8rem; margin-bottom: 10px; color: var(--text-light); }
+        .pillar-card .pillar-tagline { font-size: 1.1rem; color: var(--text-secondary); font-style: italic; margin-bottom: 25px; max-width: 100%; }
+        .pillar-card ul { list-style: none; padding: 0; }
+        .pillar-card li { font-size: 1rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: 20px; }
+        .pillar-card li strong { display: block; color: var(--text-light); font-weight: 700; margin-bottom: 5px; }
+
+        /* --- SEÇÃO "PARA QUEM É" --- */
+        #target-audience { background-color: #000; }
+        .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
+        .audience-card { background: var(--bg-card); padding: 40px 30px; border: 1px solid var(--border-color); border-radius: 15px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .audience-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .audience-card .icon { font-size: 3rem; margin-bottom: 15px; display: block; }
+        .audience-card h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--text-light); }
+        .audience-card p { font-size: 1.05rem; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+
+        /* --- TESTIMONIALS --- */
+        #testimonials { position: relative; background-image: url('fundo1.png'); background-size: cover; background-position: center; background-attachment: fixed; }
+        #testimonials::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 10, 0.85); z-index: 1; }
+        #testimonials .container { position: relative; z-index: 2; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
+        .testimonial-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 15px; padding: 30px; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .testimonial-card:hover { transform: translateY(-5px); border-color: var(--secondary-accent); }
+        .stars { color: #FFC107; margin-bottom: 15px; font-size: 1.2rem; }
+        .testimonial-card p { font-size: 1.1rem; text-align: left; margin: 0; font-style: italic; }
+        .author { display: flex; align-items: center; margin-top: 20px; }
+        .author-info { text-align: left; }
+        .author-info strong { color: var(--text-light); }
+        .author-info span { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* --- SEÇÃO DE PREÇOS COM 3 PLANOS --- */
+        #pricing { background-color: #0A0A0A; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; align-items: stretch; }
+        .pricing-card { background: var(--bg-card); border: 2px solid var(--border-color); border-radius: 20px; padding: 40px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; display: flex; flex-direction: column; }
+        .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .pricing-card.performance { border-color: var(--highlight-accent); }
+        .pricing-card.popular { border-color: var(--primary-accent); }
+        .pricing-card.premium { border-color: var(--secondary-accent); }
+        .popular-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary-accent); color: #000; font-weight: 900; padding: 5px 20px; border-radius: 20px; font-size: 0.9rem; }
+        .pricing-card h3 { font-size: 1.8rem; margin-bottom: 15px; }
+        .price { font-size: 3.5rem; font-weight: 900; margin: 0 0 10px 0; white-space: nowrap; }
+        .price .cents { font-size: 1.8rem; }
+        .price span { font-size: 1.2rem; font-weight: 400; color: var(--text-secondary); }
+        .credits { color: var(--highlight-accent); font-weight: 700; margin-bottom: 30px; }
+        .pricing-card ul { list-style: none; padding: 0; margin-bottom: 40px; text-align: left; flex-grow: 1; }
+        .pricing-card li { margin-bottom: 15px; color: var(--text-secondary); padding-left: 30px; position: relative; }
+        .pricing-card li::before { content: '✓'; position: absolute; left: 0; color: var(--highlight-accent); }
+        .pricing-card .cta-button { display: block; width: 100%; margin-top: auto; }
+        .pricing-card.performance .cta-button { background: var(--highlight-accent); box-shadow: 0 0 25px rgba(175, 255, 51, 0.4); }
+        .pricing-card.popular .cta-button { background: var(--primary-accent); box-shadow: 0 0 25px rgba(0, 163, 255, 0.5); }
+        .pricing-card.premium .cta-button { background: var(--secondary-accent); box-shadow: 0 0 25px rgba(255, 77, 0, 0.5); }
+        .credit-info { max-width: 700px; margin: 60px auto 0; padding: 20px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 15px; text-align: left; }
+        .credit-info p { font-size: 1rem; max-width: 100%; }
+        .credit-info strong { color: var(--text-light); }
+        .credit-info ul { list-style-position: inside; padding-left: 10px; margin-top: 10px; }
+        
+        /* --- FAQ --- */
+        #faq { background-color: #000; }
+        .faq-accordion { max-width: 800px; margin: 60px auto 0; }
+        .faq-item { background-color: var(--bg-card); margin-bottom: 10px; border-radius: 10px; border: 1px solid var(--border-color); overflow: hidden; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .faq-item:hover { transform: translateY(-5px); border-color: var(--secondary-accent); }
+        .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 20px; font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-light); }
+        .faq-question::after { content: '+'; font-size: 2rem; color: var(--primary-accent); transition: transform 0.3s ease; }
+        .faq-item.active .faq-question::after { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .faq-answer p { padding: 0 20px 20px; text-align: left; font-size: 1.1rem; }
+
+        /* --- FINAL CTA --- */
+        #final-cta { background: linear-gradient(-45deg, #0a0a0a, var(--primary-accent), var(--secondary-accent), #0a0a0a); background-size: 400% 400%; animation: final-cta-flow 10s ease infinite; }
+        @keyframes final-cta-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        #final-cta h2 { color: var(--text-light); text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        #final-cta p { color: var(--text-light); opacity: 0.9; }
+        #final-cta .cta-button { background: rgba(255,255,255,0.9); color: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
+        /* --- FOOTER --- */
+        footer { background-color: #000; color: var(--text-secondary); text-align: center; padding: 40px 0; border-top: 1px solid var(--border-color); }
+        footer p { font-size: 0.9rem; margin: 0 auto 10px; }
+        footer a { color: var(--primary-accent); text-decoration: none; font-weight: 600; }
+        
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+             .audience-grid, .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+             .pricing-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; letter-spacing: -2px; }
+            h2 { font-size: 2.5rem; letter-spacing: -1.5px; }
+            section { padding: 80px 0; }
+            .hero { padding: 120px 20px 80px; height: auto; min-height: 90vh; background-image: linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.7)), url('fundo1.png'); background-size: cover; background-position: center; }
+            #hero-video, .hero::after { display: none; }
+            .hero p { font-size: 1.2rem; }
+            .cycle-container, .feature-row, .audience-grid, .pillars-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .feature-row:nth-child(even) .feature-text { grid-row: 2; }
+            .feature-text, .feature-text h3 { text-align: center; }
+            .feature-text li { text-align: left; }
+        }
+
+        /* --- ÍCONE FLUTUANTE DO WHATSAPP --- */
+        .whatsapp-float { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25D366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 1000; transition: transform 0.2s ease; }
+        .whatsapp-float img { width: 35px; margin-top: 12px; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <audio id="hoverSound" src="hover-sound.mp3" preload="auto"></audio>
+    <a href="#" class="logo-link"><img src="logo.png" alt="NutriBot AI Logo"></a>
+
+    <header class="hero">
+        <video id="hero-video" autoplay loop muted playsinline><source src="video.mp4" type="video/mp4">Seu navegador não suporta vídeos.</video>
+        <div class="container">
+            <h1>O Fim do Achismo.<br>O Início da Performance Absoluta.</h1>
+            <p>O primeiro Sistema Operacional que unifica Nutrição, Treino e Análise de Dados para atletas que não negociam resultados.</p>
+            <a href="leads2.html" class="cta-button sound-hover">Liberar meu Acesso</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="problem" class="text-center">
+            <div class="container">
+                <h2>Você está treinando no escuro?</h2>
+                <p>Chega de múltiplos apps, planos genéricos e planilhas. Sem dados centralizados, você não sabe se está realmente progredindo.</p>
+            </div>
+        </section>
+
+        <section id="how-it-works">
+            <div class="container text-center">
+                <h2>O Ciclo da Performance Absoluta</h2>
+                <div class="cycle-container">
+                    <div class="cycle-step sound-hover"><div class="icon">📲</div><h3>1. REGISTRE</h3><p>Use a câmera para analisar refeições, registre seu peso, medidas e cada série do seu treino. <strong>Zero atrito.</strong></p></div>
+                    <div class="cycle-step sound-hover"><div class="icon">🤖</div><h3>2. ANALISE</h3><p>Nossa IA processa seus dados em tempo real, calculando macros, gerando relatórios e comparando com suas metas.</p></div>
+                    <div class="cycle-step sound-hover"><div class="icon">📈</div><h3>3. EVOLUA</h3><p>Receba insights, gráficos de progresso e planos dinâmicos. Pare de adivinhar e <strong>comece a executar com precisão.</strong></p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="container">
+                <div class="text-center" style="margin-bottom: 100px;">
+                    <h2>Um Ecossistema de Performance no seu Telegram</h2>
+                    <p>Integramos todas as ferramentas que você precisa em uma única conversa inteligente.</p>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-text"><h3>🍽️ Seu Nutricionista Pessoal</h3><ul><li><strong>Análise por Foto:</strong> Use o poder do <strong>GPT-4o Vision</strong> para calcular macros instantaneamente.</li><li><strong>Precisão Nacional:</strong> Calibração com a <strong>Tabela TACO</strong> para dados brasileiros confiáveis.</li><li><strong>Planos e Suplementos:</strong> Receba planos alimentares dinâmicos e sugestões de suplementos baseados em seus objetivos.</li></ul></div>
+                    <div class="feature-image sound-hover"><img src="imagempage.png" alt="Análise Nutricional de um prato" style="max-height: 300px; width: auto;"></div>
+                </div>
+                <div class="feature-row">
+                    <div class="feature-image sound-hover"><img src="head_coach_visual.png" alt="Dashboard de treino com gráficos e exercícios"></div>
+                    <div class="feature-text"><h3>🏋️‍♂️ Seu Head Coach Pessoal</h3><ul><li><strong>Planos Profissionais:</strong> Acesse splits de treino (3-5 dias) adaptados para seu nível de experiência.</li><li><strong>Diário de Performance:</strong> Registre <strong>Séries x Reps x Carga</strong> e monitore sua progressão de força.</li><li><strong>Biblioteca Visual:</strong> Cada exercício com imagem para garantir a execução correta e segura.</li></ul></div>
+                </div>
+                 <div class="feature-row">
+                    <div class="feature-text"><h3>📊 Seu Analista de Dados 24/7</h3><ul><li><strong>Gráficos de Evolução:</strong> Visualize seu progresso de peso, medidas e volume de treino com gráficos gerados por <strong>Matplotlib</strong>.</li><li><strong>Relatórios Inteligentes:</strong> Receba resumos diários e semanais do seu consumo vs. meta e performance nos treinos.</li><li><strong>IA com Memória:</strong> Converse com uma IA que te conhece, lembra seu histórico e oferece insights personalizados.</li></ul></div>
+                    <div class="feature-image sound-hover"><img src="logo.png" alt="Gráfico de Evolução de Performance"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pilares-performance">
+            <div class="container text-center">
+                <h2>Os 4 Pilares da Sua Performance</h2>
+                <p>Tudo o que você precisa, integrado em uma única plataforma inteligente.</p>
+                <div class="pillars-grid">
+                    <div class="pillar-card sound-hover"><div class="icon">🍽️</div><h3>Pilar 1: O Nutricionista Pessoal</h3><p class="pillar-tagline">Análise nutricional precisa e sem esforço.</p><ul><li><strong>Análise por Foto com GPT-4o Vision:</strong> Aponte a câmera, e o bot identifica e calcula os macros da sua refeição.</li><li><strong>Precisão Brasileira com a Tabela TACO:</strong> Usamos a base de dados de referência nacional para garantir cálculos exatos.</li><li><strong>Plano Alimentar Dinâmico:</strong> Receba um plano de exemplo com quantidades ajustadas matematicamente para a sua meta.</li><li><strong>Sugestão de Suplementos:</strong> Recomendações inteligentes baseadas no seu objetivo e no melhor horário de uso.</li></ul></div>
+                    <div class="pillar-card sound-hover"><div class="icon">🏋️‍♂️</div><h3>Pilar 2: O Head Coach Pessoal</h3><p class="pillar-tagline">Estrutura de treino profissional e registro detalhado.</p><ul><li><strong>Planos de Treino Profissionais:</strong> Acesse splits de treino (3-5 dias/semana) adaptados ao seu nível de experiência.</li><li><strong>Biblioteca Visual de Exercícios:</strong> Cada exercício vem com uma imagem para garantir a execução correta e segura.</li><li><strong>Diário de Treino Detalhado (Workout Log):</strong> Registre seu treino com Séries x Reps x Carga e acompanhe sua progressão.</li><li><strong>Histórico Completo de Treinos:</strong> Todas as sessões salvas para análise de performance ao longo do tempo.</li></ul></div>
+                    <div class="pillar-card sound-hover"><div class="icon">📊</div><h3>Pilar 3: O Analista de Performance</h3><p class="pillar-tagline">Seus dados transformados em clareza e motivação.</p><ul><li><strong>Gráficos de Evolução (Matplotlib):</strong> A prova visual de que seu esforço está funcionando.</li><li><strong>Relatório de Bordo Diário:</strong> Resumo completo do seu consumo vs. meta e treinos realizados.</li><li><strong>Análise Tática Semanal:</strong> Visão macro da sua semana para tomar decisões mais inteligentes.</li><li><strong>Cálculos Precisos e Individuais:</strong> O bot calcula seu IMC, TMB e GCD, criando metas 100% suas.</li></ul></div>
+                    <div class="pillar-card sound-hover"><div class="icon">🧠</div><h3>Pilar 4: A Inteligência Contextual</h3><p class="pillar-tagline">Um cérebro que te entende de verdade.</p><ul><li><strong>IA com Memória (GPT-4o-mini):</strong> Ele sabe seu perfil, suas metas, e o que você comeu há 5 minutos.</li><li><strong>Feedback Pós-Refeição:</strong> Receba uma análise instantânea e contextualizada da sua refeição.</li><li><strong>Acesso 24/7:</strong> Tire dúvidas sobre nutrição e treino a qualquer hora.</li><li><strong>Interface Conversacional:</strong> Todo esse poder entregue em uma simples conversa no Telegram.</li></ul></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="target-audience">
+            <div class="container text-center">
+                <h2>Criado para quem não negocia resultados</h2>
+                <p style="margin-bottom: 60px;">Seja você um atleta de elite ou alguém buscando sua melhor versão, o NutriBot AI é seu sistema operacional.</p>
+                <div class="audience-grid">
+                    <div class="audience-card sound-hover"><span class="icon">💪</span><h3>Bodybuilders</h3><p>Precisão máxima nos macros para cada fase do seu off e pre-contest.</p></div>
+                    <div class="audience-card sound-hover"><span class="icon">🏋️‍♂️</span><h3>Crossfitters</h3><p>Otimize sua energia para os WODs e monitore a recuperação para treinar mais e melhor.</p></div>
+                    <div class="audience-card sound-hover"><span class="icon">🏃‍♀️</span><h3>Corredores e Ciclistas</h3><p>Gerencie sua ingestão de carboidratos para treinos longos e provas com dados precisos.</p></div>
+                    <div class="audience-card sound-hover"><span class="icon">🔥</span><h3>Entusiastas Fitness</h3><p>Pare de adivinhar e finalmente veja os resultados do seu esforço na academia e na cozinha.</p></div>
+                    <div class="audience-card sound-hover"><span class="icon">🥊</span><h3>Lutadores</h3><p>Controle seu peso para a categoria sem perder potência e acelere a recuperação entre os treinos.</p></div>
+                    <div class="audience-card sound-hover"><span class="icon">🏆</span><h3>Atletas de Força</h3><p>Otimize a nutrição para ganhos de força bruta e bater seus recordes pessoais (PRs).</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials">
+            <div class="container text-center">
+                <h2>O que nossos atletas dizem:</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card sound-hover"><div class="stars">★★★★★</div><p>"A análise por foto mudou o jogo. Finalmente parei de perder tempo digitando cada alimento. A precisão com a base de dados brasileira é incrível."</p><div class="author"><div class="author-info"><strong>Juliana S.</strong><br><span>Entusiasta Fitness</span></div></div></div>
+                    <div class="testimonial-card sound-hover"><div class="stars">★★★★★</div><p>"Como engenheiro, eu amo dados. Este bot é o primeiro que realmente transforma meus registros de treino em gráficos de volume que fazem sentido. É a ferramenta definitiva."</p><div class="author"><div class="author-info"><strong>Pedro M.</strong><br><span>Engenheiro e Maratonista</span></div></div></div>
+                    <div class="testimonial-card sound-hover"><div class="stars">★★★★★</div><p>"Ter um plano de treino estruturado e poder registrar minhas cargas no mesmo lugar da dieta é surreal. O Nutri-AI unificou toda a minha preparação."</p><div class="author"><div class="author-info"><strong>Ricardo G.</strong><br><span>Atleta de Crossfit</span></div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing">
+            <div class="container text-center">
+                <h2>Acesso Imediato à Sua Vantagem Injusta</h2>
+                <p>Nossos planos são desenhados para serem simples e justos. Escolha o ideal para sua jornada e comece a otimizar sua performance hoje.</p>
+                <div class="pricing-grid">
+                    <!-- PLANO PERFORMANCE -->
+                    <div class="pricing-card performance sound-hover">
+                        <h3>Plano Performance</h3>
+                        <div class="price">R$ 29<span class="cents">,90</span><span>/mês</span></div>
+                        <p class="credits">150 Créditos de IA / mês</p>
+                        <ul><br>
+                            <li>Análise de Refeição por Foto</li>
+                            <li>Conversas com a Nutri-IA</li>
+                            <li>Geração de Planos e Sugestões</li>
+                            <li><strong>Todas as outras funções ilimitadas</strong></li>
+                        </ul>
+                        <a href="#" class="cta-button">Assinar Performance</a>
+                    </div>
+                    <!-- PLANO ABSOLUTA -->
+                    <div class="pricing-card popular sound-hover">
+                        <div class="popular-badge">Mais Popular</div>
+                        <h3>Plano Absoluta</h3>
+                        <div class="price">R$ 59<span class="cents">,90</span><span>/mês</span></div>
+                        <p class="credits">400 Créditos de IA / mês</p>
+                        <ul><br>
+                            <li>Análise de Refeição por Foto</li>
+                            <li>Conversas com a Nutri-IA</li>
+                            <li>Geração de Planos e Sugestões</li>
+                            <li><strong>Todas as outras funções ilimitadas</strong></li>
+                        </ul>
+                        <a href="#" class="cta-button">Assinar Absoluta</a>
+                    </div>
+                    <!-- PLANO ELITE -->
+                    <div class="pricing-card premium sound-hover">
+                        <h3>Plano Elite</h3>
+                        <div class="price">R$ 99<span class="cents">,90</span><span>/mês</span></div>
+                        <p class="credits">900 Créditos de IA / mês</p>
+                        <ul>
+                            <li>Análise de Refeição por Foto</li>
+                            <li>Conversas com a Nutri-IA</li>
+                            <li>Geração de Planos e Sugestões</li>
+                            <li><strong>Todas as outras funções ilimitadas</strong></li>
+                        </ul>
+                        <a href="#" class="cta-button">Assinar Elite</a>
+                    </div>
+                </div>
+
+                <div class="credit-info">
+                    <p><strong>Como funcionam os Créditos de IA?</strong><br>
+                    Você usa créditos apenas para as funções que consomem mais recursos de inteligência artificial. <strong>Registrar treinos, peso, medidas e acessar seu histórico é sempre ilimitado e não gasta créditos!</strong></p>
+                    <ul>
+                        <li>**Análise de Refeição por Foto:** `5 créditos`</li>
+                        <li>**Geração de Planos (Alimentar/Suplementos):** `3 créditos`</li>
+                        <li>**Pergunta à Nutri-IA:** `1 crédito`</li>
+                    </ul>
+                    <p style="font-size: 0.9rem; margin-top: 15px;">Acabaram seus créditos? Sem problemas. Você pode adquirir pacotes extras ou esperar a renovação automática no próximo mês. <br><strong>Assine o plano anual e ganhe 2 meses de desconto!</strong></p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="faq">
+            <div class="container text-center">
+                <h2>Ainda tem dúvidas?</h2>
+                 <div class="faq-accordion">
+                    <div class="faq-item sound-hover"><button class="faq-question">Preciso baixar algum aplicativo?</button><div class="faq-answer"><p>Não. O sistema opera 100% dentro do Telegram. Sem download, sem ocupar memória, sem mais um ícone na sua tela. É performance com atrito zero.</p></div></div>
+                    <div class="faq-item sound-hover"><button class="faq-question">A análise de fotos é precisa?</button><div class="faq-answer"><p>Sim. Usamos a IA de visão do GPT-4o, a mais avançada do mercado, combinada com a Tabela TACO para dados brasileiros. A precisão é o nosso foco.</p></div></div>
+                    <div class="faq-item sound-hover"><button class="faq-question">Isso substitui meu coach ou nutricionista?</button><div class="faq-answer"><p>Isto é o seu analista de dados 24/7. Ele potencializa o trabalho do seu coach/nutri, entregando dados precisos que eles podem usar para otimizar sua estratégia.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="final-cta" class="text-center">
+            <div class="container">
+                <h2>Amadores seguem planos.<br>Profissionais otimizam sistemas.</h2>
+                <p>Deixe a máquina fazer o trabalho pesado. Automatize sua análise e foque sua energia mental na execução.</p>
+                <a href="leads2.html" class="cta-button">Quero minha Vantagem Injusta</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 NutriBot AI. Todos os direitos reservados.</p>
+            <p>Desenvolvido por <a href="https://www.linkedin.com/in/bruno-loureiro-69747728/" target="_blank" rel="noopener noreferrer" class="sound-hover">StudioWeb</a>.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button=>{button.addEventListener('click',()=>{const faqItem=button.parentElement;const answer=button.nextElementSibling;const wasActive=faqItem.classList.contains('active');document.querySelectorAll('.faq-item').forEach(item=>{if(item!==faqItem){item.classList.remove('active');item.querySelector('.faq-answer').style.maxHeight=null}});if(!wasActive){faqItem.classList.add('active');answer.style.maxHeight=answer.scrollHeight+"px"}else{faqItem.classList.remove('active');answer.style.maxHeight=null}})});
+        const hoverSound=document.getElementById('hoverSound');const soundElements=document.querySelectorAll('.sound-hover');soundElements.forEach(elem=>{elem.addEventListener('mouseenter',()=>{hoverSound.currentTime=0;hoverSound.play().catch(error=>{console.log("A reprodução do áudio foi impedida pelo navegador.")})})});
+    </script>
+
+    <a href="https://api.whatsapp.com/send?phone=5515996885952&text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20NutriBot%20AI." class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/2044px-WhatsApp.svg.png" alt="Fale Conosco pelo WhatsApp">
+    </a>
+
+</body>
+</html>
