@@ -414,9 +414,31 @@
         <div class="container">
             <p>&copy; 2025 NutriBot AI. Todos os direitos reservados.</p>
             <p>Desenvolvido por <a href="https://www.linkedin.com/in/bruno-loureiro-69747728/" target="_blank" rel="noopener noreferrer" class="sound-hover">StudioWeb</a>.</p>
+            
+            <!-- NOVO CÓDIGO HTML DO CONTADOR -->
+            <p style="margin-top: 15px;">Acessos a esta página: <span id="visitor-counter" style="font-weight: bold; color: var(--primary-accent);">Carregando...</span></p>
         </div>
     </footer>
     
+    <!-- NOVO SCRIPT DO CONTADOR (coloque antes do seu script principal) -->
+    <script>
+        const counterElement = document.getElementById('visitor-counter');
+
+        async function updateCounter() {
+            try {
+                // Esta URL cria um contador único para sua página.
+                let response = await fetch('https://api.countapi.xyz/hit/nutribot-ai-vendas/visits');
+                let data = await response.json();
+                counterElement.textContent = data.value;
+            } catch (error) {
+                counterElement.textContent = 'N/A'; // Mostra N/A se der erro
+                console.error("Erro ao buscar o contador de visitas:", error);
+            }
+        }
+
+        updateCounter();
+    </script>
+
     <script>
         // --- CÓDIGO DO FAQ ---
         document.querySelectorAll('.faq-question').forEach(button=>{button.addEventListener('click',()=>{const faqItem=button.parentElement;const answer=button.nextElementSibling;const wasActive=faqItem.classList.contains('active');document.querySelectorAll('.faq-item').forEach(item=>{if(item!==faqItem){item.classList.remove('active');item.querySelector('.faq-answer').style.maxHeight=null}});if(!wasActive){faqItem.classList.add('active');answer.style.maxHeight=answer.scrollHeight+"px"}else{faqItem.classList.remove('active');answer.style.maxHeight=null}})});
@@ -424,7 +446,7 @@
         // --- CÓDIGO DO SOM AO PASSAR O MOUSE ---
         const hoverSound=document.getElementById('hoverSound');const soundElements=document.querySelectorAll('.sound-hover');soundElements.forEach(elem=>{elem.addEventListener('mouseenter',()=>{hoverSound.currentTime=0;hoverSound.play().catch(error=>{console.log("A reprodução do áudio foi impedida pelo navegador.")})})});
 
-        // --- CÓDIGO NOVO: ANIMAÇÃO DE SCROLL ---
+        // --- CÓDIGO: ANIMAÇÃO DE SCROLL ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
