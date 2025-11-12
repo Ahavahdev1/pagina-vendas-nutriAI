@@ -415,23 +415,31 @@
             <p>&copy; 2025 NutriBot AI. Todos os direitos reservados.</p>
             <p>Desenvolvido por <a href="https://www.linkedin.com/in/bruno-loureiro-69747728/" target="_blank" rel="noopener noreferrer" class="sound-hover">StudioWeb</a>.</p>
             
-            <!-- NOVO CÓDIGO HTML DO CONTADOR -->
+            <!-- CÓDIGO HTML DO CONTADOR -->
             <p style="margin-top: 15px;">Acessos a esta página: <span id="visitor-counter" style="font-weight: bold; color: var(--primary-accent);">Carregando...</span></p>
         </div>
     </footer>
     
-    <!-- NOVO SCRIPT DO CONTADOR (coloque antes do seu script principal) -->
+    <!-- SCRIPT DO CONTADOR PERSONALIZADO COM VERCEL -->
     <script>
         const counterElement = document.getElementById('visitor-counter');
+        const counterParagraph = counterElement.parentElement;
 
         async function updateCounter() {
+            // A URL agora aponta para a nossa própria API criada na Vercel
+            const apiUrl = '/api/contador'; 
+
             try {
-                // Esta URL cria um contador único para sua página.
-                let response = await fetch('https://api.countapi.xyz/hit/nutribot-ai-vendas/visits');
+                let response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Falha na resposta da API do contador');
+                }
                 let data = await response.json();
+                // Nossa API retorna o valor dentro da propriedade "value"
                 counterElement.textContent = data.value;
             } catch (error) {
-                counterElement.textContent = 'N/A'; // Mostra N/A se der erro
+                // Se algo falhar, o parágrafo do contador é escondido
+                counterParagraph.style.display = 'none'; 
                 console.error("Erro ao buscar o contador de visitas:", error);
             }
         }
